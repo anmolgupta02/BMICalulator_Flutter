@@ -1,3 +1,4 @@
+import 'package:bmicalculator/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -55,18 +56,18 @@ class _InputPageState extends State<InputPage> {
                 children: <Widget>[
                   Expanded(
                       child: ReuseableCard(
-                    //Male Selector Card
-                    currentSelectedGender == GenderType.Male
-                        ? kActiveCardColor
-                        : kInactiveCardColor,
-                    childCard: IconContent(FontAwesomeIcons.mars, 'MALE'),
-                    onPress: () {
-                      print("Male was pressed.");
-                      setState(() {
-                        currentSelectedGender = GenderType.Male;
-                      });
-                    },
-                  )),
+                        //Male Selector Card
+                        currentSelectedGender == GenderType.Male
+                            ? kActiveCardColor
+                            : kInactiveCardColor,
+                        childCard: IconContent(FontAwesomeIcons.mars, 'MALE'),
+                        onPress: () {
+                          print("Male was pressed.");
+                          setState(() {
+                            currentSelectedGender = GenderType.Male;
+                          });
+                        },
+                      )),
                   Expanded(
                     //FEMALE Selctor Section
                       child: ReuseableCard(
@@ -219,23 +220,29 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Container(
-              color: kBottomContainerColor,
-              width: double.infinity,
-              height: kBottomContainerHeight,
-              margin: EdgeInsets.only(top: 10.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'CALCULATE',
-                    style: TextStyle(
-                        fontSize: 23.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                    ),
-                  )
-                ],
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return ResultsPage();
+                }));
+              },
+              child: Container(
+                color: kBottomContainerColor,
+                width: double.infinity,
+                height: kBottomContainerHeight,
+                margin: EdgeInsets.only(top: 10.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'CALCULATE',
+                      style: TextStyle(
+                          fontSize: 23.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    )
+                  ],
+                ),
               ),
             )
           ],
