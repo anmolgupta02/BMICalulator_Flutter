@@ -13,6 +13,8 @@ class InputPage extends StatefulWidget {
 enum GenderType { Male, Female }
 
 int height = 180;
+int weight = 60;
+int age = 19;
 
 class _InputPageState extends State<InputPage> {
   GenderType currentSelectedGender;
@@ -53,18 +55,20 @@ class _InputPageState extends State<InputPage> {
                 children: <Widget>[
                   Expanded(
                       child: ReuseableCard(
-                        currentSelectedGender == GenderType.Male
-                            ? kActiveCardColor
-                            : kInactiveCardColor,
-                        childCard: IconContent(FontAwesomeIcons.mars, 'MALE'),
-                        onPress: () {
-                          print("Male was pressed.");
-                          setState(() {
-                            currentSelectedGender = GenderType.Male;
-                          });
-                        },
-                      )),
+                    //Male Selector Card
+                    currentSelectedGender == GenderType.Male
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    childCard: IconContent(FontAwesomeIcons.mars, 'MALE'),
+                    onPress: () {
+                      print("Male was pressed.");
+                      setState(() {
+                        currentSelectedGender = GenderType.Male;
+                      });
+                    },
+                  )),
                   Expanded(
+                    //FEMALE Selctor Section
                       child: ReuseableCard(
                         currentSelectedGender == GenderType.Female
                             ? kActiveCardColor
@@ -82,22 +86,29 @@ class _InputPageState extends State<InputPage> {
               ),
             ),
             Expanded(
+              //Slider Card.
                 child: ReuseableCard(
                   kActiveCardColor,
                   childCard: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('HEIGHT',
-                        style: kLabelTextStyle,),
+                      Text(
+                        'HEIGHT',
+                        style: kLabelTextStyle,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: <Widget>[
-                          Text(height.toString(),
+                          Text(
+                            height.toString(),
                             style: kHeavyTextStyle,
                           ),
-                          Text('cm', style: kLabelTextStyle,),
+                          Text(
+                            'cm',
+                            style: kLabelTextStyle,
+                          ),
                         ],
                       ),
                       SliderTheme(
@@ -105,12 +116,11 @@ class _InputPageState extends State<InputPage> {
                             activeTrackColor: Colors.white,
                             overlayColor: Color(0x29EB1555),
                             inactiveTrackColor: Color(0xFF8D8E98),
-                            thumbShape: RoundSliderThumbShape(
-                                enabledThumbRadius: 15.0),
-                            overlayShape: RoundSliderOverlayShape(
-                                overlayRadius: 30.0),
-                            thumbColor: Color(0xFFEB1555)
-                        ),
+                            thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                            overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30.0),
+                            thumbColor: Color(0xFFEB1555)),
                         child: Slider(
                           value: height.toDouble(),
                           min: 120.0,
@@ -129,10 +139,82 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: ReuseableCard(kActiveCardColor),
+                    child: ReuseableCard(
+                      kActiveCardColor,
+                      childCard: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kHeavyTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(
+                                  childIcon: FontAwesomeIcons.minus,
+                                  onClicked: () {
+                                    setState(() {
+                                      weight--;
+                                    });
+                                  }
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              RoundIconButton(
+                                  childIcon: FontAwesomeIcons.plus,
+                                  onClicked: () {
+                                    setState(() {
+                                      weight++;
+                                    });
+                                  }
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                   Expanded(
-                    child: ReuseableCard(kActiveCardColor),
+                    child: ReuseableCard(kActiveCardColor,
+                      childCard: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'AGE',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            age.toString(),
+                            style: kHeavyTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              RoundIconButton(childIcon: FontAwesomeIcons.minus,
+                                onClicked: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                },),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              RoundIconButton(childIcon: FontAwesomeIcons.plus,
+                                onClicked: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                },)
+                            ],
+                          )
+                        ],
+                      ),),
                   )
                 ],
               ),
@@ -142,9 +224,44 @@ class _InputPageState extends State<InputPage> {
               width: double.infinity,
               height: kBottomContainerHeight,
               margin: EdgeInsets.only(top: 10.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'CALCULATE',
+                    style: TextStyle(
+                        fontSize: 23.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ));
+  }
+}
+
+//Here we are creating our own Implementation of Floating Action Button.
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({this.childIcon, this.onClicked});
+
+  final IconData childIcon;
+  final Function onClicked;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(childIcon,
+        color: Colors.white,),
+      elevation: 0.0,
+      constraints: BoxConstraints.tightFor(width: 50.0, height: 50.0),
+      //Taken From Floating Action button Class Property.
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
+      onPressed: onClicked,
+    );
   }
 }
 
