@@ -1,10 +1,13 @@
-import 'package:bmicalculator/results_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'constants.dart';
-import 'icon_content.dart';
-import 'reuseable_card.dart';
+import 'file:///E:/Flutter%20Training/Training%20Projects/BMI%20Calculator/bmi_calculator/lib/Screens/results_page.dart';
+
+import '../CustomComponents/bottom_button.dart';
+import '../CustomComponents/icon_content.dart';
+import '../CustomComponents/reuseable_card.dart';
+import '../CustomComponents/round_icon_button.dart';
+import '../constants.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -162,8 +165,7 @@ class _InputPageState extends State<InputPage> {
                                     setState(() {
                                       weight--;
                                     });
-                                  }
-                              ),
+                                  }),
                               SizedBox(
                                 width: 10,
                               ),
@@ -173,8 +175,7 @@ class _InputPageState extends State<InputPage> {
                                     setState(() {
                                       weight++;
                                     });
-                                  }
-                              )
+                                  })
                             ],
                           )
                         ],
@@ -182,7 +183,8 @@ class _InputPageState extends State<InputPage> {
                     ),
                   ),
                   Expanded(
-                    child: ReuseableCard(kActiveCardColor,
+                    child: ReuseableCard(
+                      kActiveCardColor,
                       childCard: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -197,79 +199,47 @@ class _InputPageState extends State<InputPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              RoundIconButton(childIcon: FontAwesomeIcons.minus,
+                              RoundIconButton(
+                                childIcon: FontAwesomeIcons.minus,
                                 onClicked: () {
                                   setState(() {
                                     age--;
                                   });
-                                },),
+                                },
+                              ),
                               SizedBox(
                                 width: 10,
                               ),
-                              RoundIconButton(childIcon: FontAwesomeIcons.plus,
+                              RoundIconButton(
+                                childIcon: FontAwesomeIcons.plus,
                                 onClicked: () {
                                   setState(() {
                                     age++;
                                   });
-                                },)
+                                },
+                              )
                             ],
                           )
                         ],
-                      ),),
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ResultsPage();
-                }));
-              },
-              child: Container(
-                color: kBottomContainerColor,
-                width: double.infinity,
-                height: kBottomContainerHeight,
-                margin: EdgeInsets.only(top: 10.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      'CALCULATE',
-                      style: TextStyle(
-                          fontSize: 23.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    )
-                  ],
+            //using GestureDetector For getting TAPABLE function on a custom container.
+            BottomButton(() {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(),
                 ),
-              ),
-            )
+              );
+            }, "Calculate")
           ],
         ));
   }
 }
 
-//Here we are creating our own Implementation of Floating Action Button.
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({this.childIcon, this.onClicked});
-
-  final IconData childIcon;
-  final Function onClicked;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(childIcon,
-        color: Colors.white,),
-      elevation: 0.0,
-      constraints: BoxConstraints.tightFor(width: 50.0, height: 50.0),
-      //Taken From Floating Action button Class Property.
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      onPressed: onClicked,
-    );
-  }
-}
 
 //

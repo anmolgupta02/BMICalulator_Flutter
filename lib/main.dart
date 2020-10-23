@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'input.dart';
+
+import 'Screens/input.dart';
 
 void main() {
   runApp(BMICalculator());
