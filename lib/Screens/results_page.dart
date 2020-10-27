@@ -6,9 +6,11 @@ import 'file:///E:/Flutter%20Training/Training%20Projects/BMI%20Calculator/bmi_c
 import '../CustomComponents/bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
-  String BMIResult = "Normal";
-  double BMIVal = 22.2;
-  String BMIResultDesc = "Your BMI is low BITCH";
+  ResultsPage({this.BMIVal, this.BMIResult, this.BMIResultDesc});
+
+  final String BMIResult;
+  final String BMIVal;
+  final String BMIResultDesc;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +33,26 @@ class ResultsPage extends StatelessWidget {
               flex: 5,
               child: ReuseableCard(
                 kActiveCardColor,
-                childCard: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      BMIResult,
-                      style: kResultWeightTextStyle,
-                    ),
-                    Text(
-                      BMIVal.toString(),
-                      style: kBMITextStyle,
-                    ),
-                    Text(
-                      BMIResultDesc,
-                      style: kBMIResult,
-                    )
-                  ],
+                childCard: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        BMIResult.toUpperCase(),
+                        style: kResultWeightTextStyle,
+                      ),
+                      Text(
+                        BMIVal,
+                        style: kBMITextStyle,
+                      ),
+                      Text(
+                        BMIResultDesc,
+                        style: kBMIResult,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

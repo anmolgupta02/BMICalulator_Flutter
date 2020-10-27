@@ -1,3 +1,4 @@
+import 'package:bmicalculator/calculatorBMI.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -59,18 +60,18 @@ class _InputPageState extends State<InputPage> {
                 children: <Widget>[
                   Expanded(
                       child: ReuseableCard(
-                        //Male Selector Card
-                        currentSelectedGender == GenderType.Male
-                            ? kActiveCardColor
-                            : kInactiveCardColor,
-                        childCard: IconContent(FontAwesomeIcons.mars, 'MALE'),
-                        onPress: () {
-                          print("Male was pressed.");
-                          setState(() {
-                            currentSelectedGender = GenderType.Male;
-                          });
-                        },
-                      )),
+                    //Male Selector Card
+                    currentSelectedGender == GenderType.Male
+                        ? kActiveCardColor
+                        : kInactiveCardColor,
+                    childCard: IconContent(FontAwesomeIcons.mars, 'MALE'),
+                    onPress: () {
+                      print("Male was pressed.");
+                      setState(() {
+                        currentSelectedGender = GenderType.Male;
+                      });
+                    },
+                  )),
                   Expanded(
                     //FEMALE Selctor Section
                       child: ReuseableCard(
@@ -229,10 +230,17 @@ class _InputPageState extends State<InputPage> {
             ),
             //using GestureDetector For getting TAPABLE function on a custom container.
             BottomButton(() {
+              CalculatorBMI calc =
+              CalculatorBMI(height: height, weight: weight);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResultsPage(),
+                  builder: (context) =>
+                      ResultsPage(
+                        BMIVal: calc.getBMI(),
+                        BMIResult: calc.getResult(),
+                        BMIResultDesc: calc.getResultMsg(),
+                      ),
                 ),
               );
             }, "Calculate")
@@ -240,6 +248,5 @@ class _InputPageState extends State<InputPage> {
         ));
   }
 }
-
 
 //

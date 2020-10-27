@@ -4,10 +4,10 @@ import '../constants.dart';
 
 //Creating a bottomButton so that this can be used in two different screens
 class BottomButton extends StatelessWidget {
-  BottomButton(this.onTap, this.buttonTilte);
+  BottomButton(this.onTap, this.buttonTitle);
 
   final Function onTap;
-  final String buttonTilte;
+  final String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class BottomButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              buttonTilte,
+              buttonTitle,
               style: kLargeButtonTextStyle,
             )
           ],
